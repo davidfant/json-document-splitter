@@ -37,9 +37,9 @@ visualize(graph, clusters)
 ![Github Commit Image](./examples/github-commit/image.png)
 
 #### Chunks
+##### $[0]
 ```json
-Path:  $/0
-Value:  {
+{
   "id": "32683206386",
   "type": "PushEvent",
   "public": true,
@@ -50,9 +50,11 @@ Value:  {
     "url": "https://api.github.com/repos/davidfant/topt"
   }
 }
+```
 
-Path:  $/0
-Value:  {
+##### $[0]
+```json
+{
   "created_at": "2023-10-19T08:24:41Z",
   "actor": {
     "id": 17096641,
@@ -63,9 +65,11 @@ Value:  {
     "avatar_url": "https://avatars.githubusercontent.com/u/17096641?"
   }
 }
+```
 
-Path:  $/0/payload
-Value:  {
+##### $[0].payload
+```json
+{
   "repository_id": 643404382,
   "push_id": 15480889582,
   "size": 2,
@@ -74,9 +78,11 @@ Value:  {
   "head": "3cc2405dc3352b4eb058bdb9fcd6a4048bd22457",
   "before": "0ed5c2cc7047177f67241b93ffd568d6405e447f"
 }
+```
 
-Path:  $/0/payload/commits/0
-Value:  {
+##### $[0].payload.commits[0]
+```json
+ {
   "sha": "5e599ae5c5daee8e88460ede2a55b3990ac1f9c1",
   "author": {
     "email": "david@fant.io",
@@ -86,9 +92,11 @@ Value:  {
   "distinct": true,
   "url": "https://api.github.com/repos/davidfant/topt/commits/5e599ae5c5daee8e88460ede2a55b3990ac1f9c1"
 }
+```
 
-Path:  $/0/payload/commits/1
-Value:  {
+##### $[0].payload.commits[1]
+```json
+{
   "sha": "3cc2405dc3352b4eb058bdb9fcd6a4048bd22457",
   "author": {
     "email": "david@fant.io",
