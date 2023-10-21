@@ -5,15 +5,15 @@ This repo splits JSON documents into even chunks.
 ## Usage
 ```python
 import json
-from json_document_splitter import JSONDocumentSplitter
+from json_document_splitter import split
 from transformers import AutoTokenizer
 
-tokenizer = AutoTokenizer.from_pretrained('gpt5')
-splitter = JSONDocumentSplitter(JSONDocumentSplitter.Options(
-  tokenizer=tokenizer,
+document = { ... }
+chunks = split(
+  document,
   max_length=1024,
-  dumps=lambda chunk: json.dumps(chunk.value),
-))
+  dumps=lambda chunk: len(json.dumps(chunk.value)),
+)
 ```
 
 ## Examples
@@ -29,9 +29,11 @@ from json_document_splitter import create_graph, sample_clusters, visualize
 with open('./examples/github-commit/data.json') as f:
   data = json.load(f)
 
-graph = create_graph(data, calculate_weight=lambda x: len(str(x)) * 10)
-clusters = sample_clusters(graph, max_weight=1000, include_child_nodes=True)
-visualize(graph, clusters)
+calculate_weight = lambda x: len(str(x.value)) * 10
+
+graph = create_graph(data)
+clusters = sample_clusters(graph, max_weight=1000, calculate_weight=calculate_weight)
+visualize(graph, clusters, calculate_weight=calculate_weight)
 ```
 
 ![Github Commit Image](./examples/github-commit/image.png)

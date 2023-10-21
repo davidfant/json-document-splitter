@@ -1,4 +1,4 @@
-from .splitter import JSONDocumentSplitter as JSONDocumentSplitter
+from .split import split as split
 from .graph import Graph as Graph
 from .graph import create_graph as create_graph
 from .cluster import Cluster as Cluster

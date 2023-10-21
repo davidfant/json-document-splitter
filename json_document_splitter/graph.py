@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from typing import Set, Any, Callable, List, Dict, Tuple, Literal
+from typing import Set, Any, List, Dict, Tuple, Literal
 from .types import NodeId, NodePath
 
 

@@ -2,7 +2,6 @@ import math
 from random import Random
 from typing import List, Set, cast, Dict, Callable, Any
 from dataclasses import dataclass
-from functools import cache
 from .graph import Graph, NodeId
 from .types import NodeId
 
@@ -134,8 +133,8 @@ def create_clusters(
             continue
 
         combined_node_ids = [
-          node_id
-          for node_id, cluster_id in cluster_by_node.items()
+          id
+          for id, cluster_id in cluster_by_node.items()
           if cluster_id in [node_cluster_id, sibling_cluster_id]
         ]
         combined_candidate = reconstruct_cached(combined_node_ids)
@@ -153,9 +152,9 @@ def create_clusters(
 
         if sibling_cluster_id:
           del clusters[sibling_cluster_id]
-          for node_id, cluster_id in cluster_by_node.items():
+          for id, cluster_id in cluster_by_node.items():
             if cluster_id == sibling_cluster_id:
-              cluster_by_node[node_id] = node_cluster_id
+              cluster_by_node[id] = node_cluster_id
         
         changed = True
       
@@ -181,12 +180,6 @@ def create_clusters(
 
 
 def clean_child_nodes(node_ids: List[NodeId], graph: Graph) -> List[NodeId]:
-  # clean_node_ids = set(node_ids)
-  # for node_id in node_ids:
-  #   parent_id = next(iter(graph.predecessors(node_id)), None)
-  #   if parent_id and parent_id in clean_node_ids:
-  #     clean_node_ids.remove(node_id)
-  # return clean_node_ids
   path_len_by_node_id = {
     node_id: len(graph.nodes[node_id].path)
     for node_id in node_ids

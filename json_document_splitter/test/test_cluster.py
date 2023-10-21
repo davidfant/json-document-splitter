@@ -5,7 +5,12 @@ from ..cluster import sample_clusters, Cluster
 
 class TestClusterGraph(unittest.TestCase):
 
-  def cluster(self, document: Dict | List, max_weight: int, max_iterations: int = 1, seed: int | None = None):
+  def cluster(
+    self,
+    document: Dict | List,
+    max_weight: int,
+    max_iterations: int = 1,
+  ):
     def sum_of_leaf_values(value: Any):
       if isinstance(value, list):
         return sum(sum_of_leaf_values(v) for v in value)
@@ -97,6 +102,23 @@ class TestClusterGraph(unittest.TestCase):
       Cluster(path=['$', 0], weight=1, value={ 'a': 1 }),
       Cluster(path=['$', 1], weight=3, value={ 'b': 3 }),
       Cluster(path=['$', 2], weight=2, value={ 'c': 2 }),
+    ]
+    self.assertEqual(len(clusters), len(expected_clusters))
+    for expected in expected_clusters:
+      self.assertIn(expected, clusters)
+  
+
+  def test_array_with_dicts_with_multiple_keys(self):
+    data = [
+      { 'key1': 1, 'key2': 1 },
+      { 'key3': 1, 'key4': 1 },
+      { 'key4': 1, 'key6': 2 },
+    ]
+    clusters = self.cluster(data, max_weight=5) # either 2 clusters can cluster
+
+    expected_clusters = [
+      Cluster(path=['$'], weight=4, child_keys={0, 1}, value=data[0:2]),
+      Cluster(path=['$', 2], weight=3, value=data[2]),
     ]
     self.assertEqual(len(clusters), len(expected_clusters))
     for expected in expected_clusters:
