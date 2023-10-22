@@ -11,7 +11,7 @@ class TestReconstruct(unittest.TestCase):
     })
 
     reconstructed = reconstruct(['$'], graph)
-    self.assertEqual(reconstructed.path, ['$'])
+    self.assertEqual(reconstructed.path, [])
     self.assertEqual(reconstructed.value, {
       'hello': 'world',
     })
@@ -26,7 +26,7 @@ class TestReconstruct(unittest.TestCase):
     ])
 
     reconstructed = reconstruct(['$[1]', '$[2]'], graph)
-    self.assertEqual(reconstructed.path, ['$'])
+    self.assertEqual(reconstructed.path, [])
     self.assertEqual(reconstructed.value, ['two', 'three'])
     self.assertEqual(reconstructed.child_keys, {1, 2})
   
@@ -38,7 +38,7 @@ class TestReconstruct(unittest.TestCase):
     })
 
     reconstructed = reconstruct(['$.two', '$.three'], graph)
-    self.assertEqual(reconstructed.path, ['$'])
+    self.assertEqual(reconstructed.path, [])
     self.assertEqual(reconstructed.value, {
       'two': 2,
       'three': { 'nested': 3 },

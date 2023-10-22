@@ -23,7 +23,7 @@ class Graph():
 
 def create_graph(
   value: Any,
-  path: NodePath = ['$'],
+  path: NodePath = [],
 ) -> Graph:
   nodes: Dict[NodeId, Node] = {}
   edges: Set[Tuple[NodeId, NodeId]] = set()
@@ -54,12 +54,10 @@ def create_graph(
   return Graph(nodes=nodes, edges=edges)
 
 def create_node_id(path: NodePath) -> str:
-  parts: List[str] = []
-  for i, p in enumerate(path):
+  id = '$'
+  for p in path:
     if isinstance(p, int):
-      parts.append(f'[{p}]')
-    elif i == 0:
-      parts.append(f'{p}')
+      id += f'[{p}]'
     else:
-      parts.append(f'.{p}')
-  return ''.join(parts)
+      id += f'.{p}'
+  return id
