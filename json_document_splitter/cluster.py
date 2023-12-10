@@ -1,4 +1,5 @@
 import math
+from time import time
 from random import Random
 from typing import List, Set, cast, Dict, Callable, Any
 from dataclasses import dataclass
@@ -26,6 +27,7 @@ def sample_clusters(
   max_weight: int,
   calculate_weight: Callable[[ClusterCandidate], int],
   max_iterations: int = 1,
+  timeout: int | None = None,
   seed: int | None = None,
 ) -> List[Cluster]:
   rand = Random(seed)
@@ -37,6 +39,7 @@ def sample_clusters(
       max_weight,
       rand=rand if iteration > 0 else None,
       calculate_weight=calculate_weight,
+      timeout=timeout / max_iterations if timeout else None,
     )
     attempts.append(attempt)
   
@@ -55,7 +58,10 @@ def create_clusters(
   max_weight: int,
   calculate_weight: Callable[[ClusterCandidate], int],
   rand: Random | None = None,
+  timeout: int | None = None,
 ) -> List[Cluster]:
+  start_at = time()
+  
   node_ids = list(graph.nodes.keys())
   if rand:
     rand.shuffle(node_ids)
@@ -100,6 +106,9 @@ def create_clusters(
   
   changed = True
   while changed:
+    if timeout and time() - start_at > timeout:
+      raise TimeoutError('Timeout exceeded')
+
     changed = False
 
     for node_id in node_ids:

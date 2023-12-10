@@ -9,6 +9,7 @@ def split(
   document: Dict | List[Dict],
   max_length: int,
   max_iterations: int = 10,
+  timeout: int | None = None,
   seed: int = 42,
   dumps: Callable[[ClusterCandidate], int] = lambda candidate: len(json.dumps(candidate.value)),
 ) -> List[Cluster]:
@@ -17,6 +18,7 @@ def split(
     graph,
     max_weight=max_length,
     max_iterations=max_iterations,
+    timeout=timeout,
     calculate_weight=dumps,
     seed=seed,
   )
