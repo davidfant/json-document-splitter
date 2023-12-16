@@ -1,7 +1,7 @@
 import math
 from time import time
 from random import Random
-from typing import List, Set, cast, Dict, Callable, Any
+from typing import List, Set, cast, Dict, Callable, Any, Union, Optional
 from dataclasses import dataclass
 from .graph import Graph, NodeId
 from .types import NodeId
@@ -10,16 +10,16 @@ from .types import NodeId
 
 @dataclass
 class ClusterCandidate():
-  path: List[str | int]
+  path: List[Union[str, int]]
   value: Any
-  child_keys: Set[str | int] | None = None
+  child_keys: Optional[Set[Union[str, int]]] = None
 
 @dataclass
 class Cluster():
-  path: List[str | int]
+  path: List[Union[str, int]]
   value: Any
   weight: int
-  child_keys: Set[str | int] | None = None
+  child_keys: Optional[Set[Union[str, int]]] = None
 
 
 def sample_clusters(
@@ -27,8 +27,8 @@ def sample_clusters(
   max_weight: int,
   calculate_weight: Callable[[ClusterCandidate], int],
   max_iterations: int = 1,
-  timeout: int | None = None,
-  seed: int | None = None,
+  timeout: Optional[int] = None,
+  seed: Optional[int] = None,
 ) -> List[Cluster]:
   rand = Random(seed)
 
@@ -57,8 +57,8 @@ def create_clusters(
   graph: Graph,
   max_weight: int,
   calculate_weight: Callable[[ClusterCandidate], int],
-  rand: Random | None = None,
-  timeout: int | None = None,
+  rand: Optional[Random] = None,
+  timeout: Optional[int] = None,
 ) -> List[Cluster]:
   start_at = time()
   

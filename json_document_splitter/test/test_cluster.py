@@ -1,13 +1,13 @@
 import unittest
-from typing import Any, Dict, List
-from ..graph import create_graph, Node
+from typing import Any, Dict, List, Union
+from ..graph import create_graph
 from ..cluster import sample_clusters, Cluster
 
 class TestClusterGraph(unittest.TestCase):
 
   def cluster(
     self,
-    document: Dict | List,
+    document: Union[Dict, List],
     max_weight: int,
     max_iterations: int = 1,
   ):

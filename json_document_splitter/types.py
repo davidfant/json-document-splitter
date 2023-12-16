@@ -1,4 +1,4 @@
-from typing import List
+from typing import List, Union
 
 NodeId = str
-NodePath = List[str | int]
+NodePath = List[Union[str, int]]

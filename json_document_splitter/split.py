@@ -1,15 +1,14 @@
 import json
-from typing import Callable, Dict, List
-from dataclasses import dataclass
+from typing import Callable, Dict, List, Optional, Union
 from .graph import create_graph
 from .cluster import sample_clusters, ClusterCandidate, Cluster
 
 
 def split(
-  document: Dict | List[Dict],
+  document: Union[Dict, List[Dict]],
   max_length: int,
   max_iterations: int = 10,
-  timeout: int | None = None,
+  timeout: Optional[int] = None,
   seed: int = 42,
   dumps: Callable[[ClusterCandidate], int] = lambda candidate: len(json.dumps(candidate.value)),
 ) -> List[Cluster]:

@@ -1,4 +1,4 @@
-from typing import Tuple, List, Callable, Any, Dict
+from typing import Tuple, List, Callable, Any, Dict, Optional
 from .types import NodeId
 from .graph import Graph
 from .cluster import Cluster, ClusterCandidate
@@ -6,8 +6,8 @@ from .cluster import Cluster, ClusterCandidate
 
 def visualize(
   graph: Graph,
-  clusters: List[Cluster] | None = None,
-  calculate_weight: Callable[[Any], int] | None = None,
+  clusters: Optional[List[Cluster]] = None,
+  calculate_weight: Optional[Callable[[Any], int]] = None,
   label_objects_and_arrays: bool = True,
   figsize: Tuple[int, int] = (10, 10),
 ):
